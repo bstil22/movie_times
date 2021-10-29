@@ -8,6 +8,7 @@ weekend_start_time = 645 # 10:45 AM in minutes
 weekend_end_time = 1440 # 12PM in minutes
 
 end_buffer_time = 20 # in minutes
+preview_time = 15 # in minutes
 
 csv_text = File.read(File.join(File.dirname(__FILE__), 'movies.csv'))
 csv_data = CSV.parse(csv_text)
@@ -24,7 +25,8 @@ csv_data.each do |row|
     end_time: end_time,
     start_time: start_time,
     movie_time: movie_minutes,
-    end_buffer_time: end_buffer_time
+    end_buffer_time: end_buffer_time,
+    preview_time: preview_time
   )
 
   puts "Weekend:"
@@ -33,7 +35,8 @@ csv_data.each do |row|
     end_time: weekend_end_time,
     start_time: weekend_start_time,
     movie_time: movie_minutes,
-    end_buffer_time: end_buffer_time
+    end_buffer_time: end_buffer_time,
+    preview_time: preview_time
   )
 end
 

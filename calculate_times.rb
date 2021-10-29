@@ -2,9 +2,9 @@ require_relative 'time'
 
 module CalculateTimes
   extend self
-  def times(end_time:, start_time:, movie_time:, end_buffer_time:)
+  def times(end_time:, start_time:, movie_time:, end_buffer_time:, preview_time:)
     total_avail_screentime = end_time - start_time
-    time_of_each_show = movie_time + end_buffer_time
+    time_of_each_show = movie_time + end_buffer_time + preview_time
 
     # this is a bit of a hack, by default returns a rounded down integer e.g. 40 / 12 => 3
     # we dont want to round up as it would put us over time
@@ -16,7 +16,7 @@ module CalculateTimes
       ends_at = starting_at + movie_time
       showings.push({ start: starting_at, ends: ends_at })
       # ensure next show starts after movie is completed and buffer is added
-      time_to_add = starting_at + (movie_time + end_buffer_time)
+      time_to_add = starting_at + (movie_time + end_buffer_time + preview_time)
       starting_at = TimeHelpers::round_up(time_to_add, 5)
     end
 
@@ -34,6 +34,6 @@ module CalculateTimes
       puts "#{TimeHelpers::minutes_to_time(show[:start])} - #{TimeHelpers::minutes_to_time(show[:ends])}"
     end
 
-    puts
+    puts #just for formatting purposes
   end
 end
