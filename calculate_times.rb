@@ -12,7 +12,7 @@ module CalculateTimes
 
     starting_at = TimeHelpers::round_up(start_time, 5)
     showings = []
-    number_of_showings.times do |_| # hacky way to create an array of length -> number_of_showings
+    Array.new(number_of_showings).each do |_| # hacky way to create an array of length -> number_of_showings
       ends_at = starting_at + movie_time
       showings.push({ start: starting_at, ends: ends_at })
       # ensure next show starts after movie is completed and buffer is added
@@ -24,7 +24,7 @@ module CalculateTimes
     # take the end_time and see how much is left over from the end of the last show
     time_remaining = TimeHelpers::down_to_nearest_five(end_time - showings[-1][:ends])
 
-    # all this is doing is adding the time_remaining to start and end in order to
+    # all this is doing is adding the time_remaining to start and end in order to shift times near closing
     showings.each do |obj|
       obj[:ends] = obj[:ends] + time_remaining
       obj[:start] = obj[:start] + time_remaining
