@@ -16,8 +16,8 @@ module CalculateTimes
       ends_at = starting_at + movie_time
       showings.push({ start: starting_at, ends: ends_at })
       # ensure next show starts after movie is completed and buffer is added
-      starting_at += (movie_time + end_buffer_time)
-      starting_at = TimeHelpers::round_up(starting_at, 5)
+      time_to_add = starting_at + (movie_time + end_buffer_time)
+      starting_at = TimeHelpers::round_up(time_to_add, 5)
     end
 
     # this is odd, but we want to ensure the movie ends as close to closing as possible per spec, so we
